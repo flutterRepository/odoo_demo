@@ -1,44 +1,99 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
+import 'package:odoo_demo/infrastructure/apis/hive_cache_factory.dart';
+import 'package:odoo_demo/infrastructure/apis/odoo_env_factory.dart';
+import 'package:odoo_demo/infrastructure/user/repository/auth/auth_repository.dart';
+import 'package:odoo_demo/infrastructure/user/repository/partner_repository.dart';
+import 'package:odoo_demo/infrastructure/user/repository/user_repository.dart';
+import 'package:odoo_demo/presentation/core/others/welcom_page.dart';
+import 'package:odoo_demo/presentation/home/home_page.dart';
+import 'package:odoo_demo/presentation/user/auth/full_auth_page.dart';
+import 'package:odoo_demo/presentation/user/auth/sign_in_page.dart';
+
+import 'package:odoo_demo/app/bindings/initial_bindings.dart';
+import 'package:odoo_demo/infrastructure/core/config.dart';
+import 'package:odoo_demo/presentation/core/services/theme_service.dart';
+import 'package:odoo_demo/presentation/core/services/translations_service.dart';
+import 'package:odoo_demo/presentation/core/theme/themes.dart';
+import 'package:odoo_demo/presentation/routes/app_pages.dart';
+import 'package:odoo_demo/presentation/user/profile/user_profile_page.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveCacheFactory.initialiseHiveCache();
+
+  bool isLoggedIn = HiveCacheFactory.hiveCache!.get(
+    Config.cacheIsLoggedInKey,
+    defaultValue: false,
+  );
+  log("L'état de la connexion dans le main est =>: $isLoggedIn");
+  bool isServerConfigured = HiveCacheFactory.hiveCache!.get(
+    Config.cacheIsServerConfiguredKey,
+    defaultValue: false,
+  );
+
+  runApp(
+    App(
+      isLoggedIn: isLoggedIn,
+      isServerConfigured: isServerConfigured,
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  final bool isLoggedIn;
+  final bool isServerConfigured;
+  const App({
+    Key? key,
+    required this.isLoggedIn,
+    required this.isServerConfigured,
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const Home(),
+    return GetMaterialApp(
+      title: 'Odoo Demo',
+      debugShowCheckedModeBanner: false,
+      theme: Themes().lightTheme,
+      darkTheme: Themes().darkTheme,
+      themeMode: ThemeService().getThemeMode(),
+      translations: Translation(),
+      locale: Get.deviceLocale,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      fallbackLocale: const Locale('en', "US"),
+      initialBinding: InitialBinding(),
+      getPages: AppPages.pages,
+      home: (isServerConfigured && isLoggedIn)
+          ? const HomePage()
+          : (isServerConfigured && !isLoggedIn)
+              ? const SignInPage()
+              : const FullAuthPage(),
+      // builder: (context, child) {
+      //   child = (isServerConfigured && isLoggedIn)
+      //       ? const HomePage()
+      //       : (isServerConfigured && !isLoggedIn)
+      //           ? const SignInPage()
+      //           : const FullAuthPage();
+      //   return child;
+      // },
+      onInit: () {
+        _setUpEnv();
+      },
     );
   }
-}
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Odoo demo"),
-      ),
-      body: Container(),
-    );
+  _setUpEnv() async {
+    log("On initilise l'environnement");
+    // await DioHttpClientFactory.computeDeviceInfo();
+    OdooEnvFactory.odooEnv!.add(AuthRepository());
+    OdooEnvFactory.odooEnv!.add(UserRepository());
+    OdooEnvFactory.odooEnv!.add(PartnerRepository());
   }
 }
