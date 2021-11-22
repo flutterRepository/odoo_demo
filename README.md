@@ -1,16 +1,21 @@
 # odoo_demo
 
-A new Flutter project.
+Application de connexion entre l'ERP Odoo et le Framework Flutter
 
-## Getting Started
+## Fonctionnalités
 
-This project is a starting point for a Flutter application.
+Configuration du serveur
+Pouvoir se connecter à n'importe quelle serveur hébergeant Odoo
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Simple connexion
+Après configuration du serveur on peut se déconnecter se reconnecter sur le même et modifier les informations de base
+
+
+
+## Interaction avec les données de Odoo
+![Screenshot_1637540383](https://user-images.githubusercontent.com/32512893/142785184-e0b47089-7073-4e32-8b30-880779d10a9a.png)
+
+### Récupération des partenrs
+![Screenshot_1637540578](https://user-images.githubusercontent.com/32512893/142785227-d75b692f-e019-4f1a-993f-5b45ca677a5e.png)
