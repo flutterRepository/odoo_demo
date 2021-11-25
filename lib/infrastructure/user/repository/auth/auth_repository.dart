@@ -41,8 +41,8 @@ class AuthRepository extends OdooRepository<User> {
     required String login,
     required String password,
   }) async {
-    final sessionChangedHandler = storeSession(HiveCacheFactory.hiveCache!);
-    OdooClientFactory.odooclient!.sessionStream.listen(sessionChangedHandler);
+    // final sessionChangedHandler = storeSession(HiveCacheFactory.hiveCache!);
+    // OdooClientFactory.odooclient!.sessionStream.listen(sessionChangedHandler);
     try {
       logger.d("Authentification de l'utilisateur `$login`");
       String odooDbName = dbName ??

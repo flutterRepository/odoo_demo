@@ -47,6 +47,7 @@ dependencies:
   odoo_rpc: ^0.4.5
   path_provider: ^2.0.6
   shared_preferences: ^2.0.8
+  sliding_up_panel: ^2.0.0+1
   uuid: ^3.0.5
 
 dev_dependencies:
@@ -99,3 +100,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/img/

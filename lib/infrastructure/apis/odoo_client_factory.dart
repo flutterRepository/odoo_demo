@@ -1,17 +1,22 @@
 import 'package:odoo_demo/infrastructure/apis/hive_cache_factory.dart';
 import 'package:odoo_demo/infrastructure/core/config.dart';
+import 'package:odoo_demo/infrastructure/localestorage/hive_storage/hive_impl.dart';
 import 'package:odoo_rpc/odoo_rpc.dart';
 
 class OdooClientFactory {
   static final _sigleton = OdooClientFactory._instance();
-  static OdooClient? get odooclient => _sigleton._odooEnv;
-  OdooClient? _odooEnv;
+  static OdooClient? get odooclient => _sigleton._odooClient;
+  OdooClient? _odooClient;
 
   OdooClientFactory._instance() {
     String odooDbName = HiveCacheFactory.hiveCache!.get(
       Config.cacheOdooServerURLKey,
       defaultValue: Config.odooServerURL,
     );
-    _odooEnv = OdooClient(odooDbName);
+    OdooSession? session = HiveCacheFactory.hiveCache!
+        .get(Config.cacheSessionKey, defaultValue: null);
+    _odooClient = OdooClient(odooDbName, session);
+    final sessionChangedHandler = storeSession(HiveCacheFactory.hiveCache!);
+    _odooClient!.sessionStream.listen(sessionChangedHandler);
   }
 }

@@ -3,4 +3,5 @@ enum MenuState {
   task,
   messaging,
   profile,
+  partner,
 }

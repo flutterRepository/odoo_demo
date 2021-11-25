@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:odoo_demo/presentation/core/utils/core/constants.dart';
+import 'package:get/get.dart';
 import 'package:odoo_demo/presentation/core/utils/core/enum_constants.dart';
+import 'package:odoo_demo/presentation/home/home_page.dart';
+import 'package:odoo_demo/presentation/user/partners/partners_page.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
@@ -9,11 +13,12 @@ class CustomBottomNavBar extends StatelessWidget {
     required this.selectedMenu,
   }) : super(key: key);
 
-  final MenuState? selectedMenu;
+  final MenuState selectedMenu;
 
   @override
   Widget build(BuildContext context) {
     const Color inActiveIconColor = Color(0xFFB6B6B6);
+    log("La selection est =>: $selectedMenu");
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
@@ -36,24 +41,39 @@ class CustomBottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: SvgPicture.asset("assets/icons/home.svg"),
+              icon: SvgPicture.asset(
+                "assets/icons/home.svg",
+                color: selectedMenu == MenuState.home
+                    ? Colors.black
+                    : Colors.grey.withOpacity(0.3),
+              ),
               color: selectedMenu == MenuState.home
-                  ? kkPrimaryColor
-                  : inActiveIconColor,
-              onPressed: () {},
+                  ? Colors.black
+                  : Colors.grey.withOpacity(0.3),
+              onPressed: () => Get.to(() => const HomePage()),
             ),
             IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
+                icon: SvgPicture.asset(
+                  "assets/icons/Chat bubble Icon.svg",
+                  color: selectedMenu == MenuState.messaging
+                      ? Colors.black
+                      : Colors.grey.withOpacity(0.3),
+                ),
                 color: selectedMenu == MenuState.messaging
-                    ? kPrimaryColor
-                    : inActiveIconColor,
+                    ? Colors.black
+                    : Colors.grey.withOpacity(0.3),
                 onPressed: () {}),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/User Icon.svg"),
-              color: selectedMenu == MenuState.profile
-                  ? kPrimaryColor
-                  : inActiveIconColor,
-              onPressed: () {},
+              icon: SvgPicture.asset(
+                "assets/icons/User Icon.svg",
+                color: selectedMenu == MenuState.partner
+                    ? Colors.black
+                    : Colors.grey.withOpacity(0.3),
+              ),
+              color: selectedMenu == MenuState.partner
+                  ? Colors.black
+                  : Colors.grey.withOpacity(0.3),
+              onPressed: () => Get.to(() => const PartenrPage()),
             ),
           ],
         ),

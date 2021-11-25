@@ -8,7 +8,6 @@ import 'package:odoo_demo/infrastructure/apis/odoo_env_factory.dart';
 import 'package:odoo_demo/infrastructure/user/repository/auth/auth_repository.dart';
 import 'package:odoo_demo/infrastructure/user/repository/partner_repository.dart';
 import 'package:odoo_demo/infrastructure/user/repository/user_repository.dart';
-import 'package:odoo_demo/presentation/core/others/welcom_page.dart';
 import 'package:odoo_demo/presentation/home/home_page.dart';
 import 'package:odoo_demo/presentation/user/auth/full_auth_page.dart';
 import 'package:odoo_demo/presentation/user/auth/sign_in_page.dart';
@@ -19,7 +18,6 @@ import 'package:odoo_demo/presentation/core/services/theme_service.dart';
 import 'package:odoo_demo/presentation/core/services/translations_service.dart';
 import 'package:odoo_demo/presentation/core/theme/themes.dart';
 import 'package:odoo_demo/presentation/routes/app_pages.dart';
-import 'package:odoo_demo/presentation/user/profile/user_profile_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,14 +73,6 @@ class App extends StatelessWidget {
           : (isServerConfigured && !isLoggedIn)
               ? const SignInPage()
               : const FullAuthPage(),
-      // builder: (context, child) {
-      //   child = (isServerConfigured && isLoggedIn)
-      //       ? const HomePage()
-      //       : (isServerConfigured && !isLoggedIn)
-      //           ? const SignInPage()
-      //           : const FullAuthPage();
-      //   return child;
-      // },
       onInit: () {
         _setUpEnv();
       },

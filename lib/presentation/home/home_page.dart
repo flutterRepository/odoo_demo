@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:odoo_demo/app/controllers/user/partner_controller.dart';
+import 'package:odoo_demo/app/controllers/main/home_controller.dart';
 import 'package:odoo_demo/presentation/core/components/custom_bottom_nav_bar.dart';
 import 'package:odoo_demo/presentation/core/utils/core/app_colors.dart';
 import 'package:odoo_demo/presentation/core/utils/core/enum_constants.dart';
@@ -42,15 +45,15 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               const PartnersWidget(),
               ElevatedButton(
-                  onPressed: () => PartnerController.to.readPartners(),
+                  onPressed: () => HomeController.to.getPartners(),
                   child: const Text("Partners"))
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavBar(
-        selectedMenu: MenuState.home,
-      ),
+      // bottomNavigationBar: const CustomBottomNavBar(
+      //   selectedMenu: MenuState.home,
+      // ),
     );
   }
 }
@@ -60,7 +63,7 @@ class PartnersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<PartnerController>(
+    return GetX<HomeController>(
       builder: (controller) {
         return ListView.builder(
           shrinkWrap: true,
@@ -69,6 +72,7 @@ class PartnersWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             // Partner parter = Partner.fromJson(controller.listOfPartners[index]);
             var partner = controller.listOfPartners[index];
+            log("L'URL de l'image du partner est ${partner.imageSmall}");
             return ListTile(
               onTap: () => Get.to(() => PartnerDetailPage(
                     partner: partner,
@@ -78,14 +82,9 @@ class PartnersWidget extends StatelessWidget {
                 child: partner.imageSmall.isNotEmpty
                     ? Image.network(
                         partner.imageSmall,
-                        height: 40,
-                        width: 40,
+                        fit: BoxFit.cover,
                       )
-                    : Icon(
-                        Icons.person,
-                        color: AppColors.grey,
-                        size: 40,
-                      ),
+                    : SvgPicture.asset("assets/icons/User Icon.svg"),
               ),
               title: Text(partner.name),
               subtitle: Text(partner.email),

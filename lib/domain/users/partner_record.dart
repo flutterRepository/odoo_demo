@@ -22,7 +22,7 @@ class Partner extends Equatable implements OdooRecord {
       "id": id,
       "name": name,
       "email": email != bool ? email : "-",
-      "image_small": imageSmall,
+      "image_512": imageSmall,
     };
   }
 
@@ -44,7 +44,7 @@ class Partner extends Equatable implements OdooRecord {
       "id": id,
       "name": name,
       "email": email,
-      "image_small": imageSmall,
+      "image_512": imageSmall,
     };
   }
 

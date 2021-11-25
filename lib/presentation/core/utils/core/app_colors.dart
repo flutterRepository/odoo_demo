@@ -36,19 +36,28 @@ class AppColors {
   static Color statusAcceptBg = HexColor("#D4FCD9");
   static Color statusNotAcceptBg = HexColor("#FFEEE2");
 
+  static const textColor1 = Color(0xFF989acd);
+  static const textColor2 = Color(0xFF878593);
+  static const bigtextColor = Color(0xFF2e2e31);
+
+  static const mainColor = Color(0xFF5d69b3);
+  static const starColor = Color(0xFFe7bb4e);
+  static const mainTextColor = Color(0xFFababad);
+  static const bottomBackgroud = Color(0xFFf1f2f1);
+
   static MaterialColor orangeThemeColor = const MaterialColor(
     0xFFF57C51,
-    const <int, Color>{
-      50: const Color(0xFFF57C51),
-      100: const Color(0xFFF57C51),
-      200: const Color(0xFFF57C51),
-      300: const Color(0xFFF57C51),
-      400: const Color(0xFFF57C51),
-      500: const Color(0xFFF57C51),
-      600: const Color(0xFFF57C51),
-      700: const Color(0xFFF57C51),
-      800: const Color(0xFFF57C51),
-      900: const Color(0xFFF57C51),
+    <int, Color>{
+      50: Color(0xFFF57C51),
+      100: Color(0xFFF57C51),
+      200: Color(0xFFF57C51),
+      300: Color(0xFFF57C51),
+      400: Color(0xFFF57C51),
+      500: Color(0xFFF57C51),
+      600: Color(0xFFF57C51),
+      700: Color(0xFFF57C51),
+      800: Color(0xFFF57C51),
+      900: Color(0xFFF57C51),
     },
   );
 }
