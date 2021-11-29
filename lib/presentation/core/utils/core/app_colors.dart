@@ -13,7 +13,7 @@ class AppColors {
   static Color greenColor = HexColor("#1BC500");
   static Color blueBgColor = HexColor("#2C5BDC");
   static Color textFieldBackgroundColor = HexColor("#FAFAFA");
-  static Color backgroundColor = HexColor("#F5F5F5");
+  static Color backgroundColor = const Color(0xFFF5F5F5);
   static Color blueDotColor = HexColor("#2081FF");
   static Color greyDotColor = HexColor("#E0E0E0");
   static Color blueButtonColor = HexColor("#2081FF");

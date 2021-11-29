@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:odoo_demo/app/cubits/app_cubits.dart';
 import 'package:odoo_demo/presentation/core/components/app_large_text.dart';
 import 'package:odoo_demo/presentation/core/components/app_text.dart';
 import 'package:odoo_demo/presentation/core/components/app_responsive_button.dart';
+import 'package:odoo_demo/presentation/core/components/delayed_animation.dart';
 import 'package:odoo_demo/presentation/core/others/nav_pages/main_page.dart';
 import 'package:odoo_demo/presentation/core/utils/core/app_colors.dart';
+import 'package:odoo_demo/presentation/core/utils/core/constants.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -67,7 +71,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         AppResponsiveButton(
                           width: 120,
                           // onTap: () => stateNavigation(),
-                          onTap: () => Get.to(() => const MainPage()),
+                          // onTap: () => Get.to(() => const MainPage()),
+                          onTap: () =>
+                              BlocProvider.of<AppCubits>(context).getData(),
                         ),
                       ],
                     ),
@@ -95,71 +101,3 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 }
-
-// class WelcomePage extends StatelessWidget {
-//   const WelcomePage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: grisBg,
-//       body: SingleChildScrollView(
-//         child: Container(
-//           margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-//           child: Column(
-//             children: [
-//               DelayAnimation(
-//                 delay: 1000,
-//                 child: SizedBox(
-//                     height: 150, child: Image.asset("assets/images/agil.jpeg")),
-//               ),
-//               const SizedBox(height: 40),
-//               const DelayAnimation(
-//                 delay: 2000,
-//                 child: SizedBox(
-//                   child: Text(
-//                     "AilOrg",
-//                     style: TextStyle(
-//                       fontSize: 23,
-//                       fontWeight: FontWeight.w900,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               DelayAnimation(
-//                 delay: 3000,
-//                 child: Container(
-//                   margin: const EdgeInsets.only(top: 30, bottom: 20),
-//                   child: Text(
-//                     "Team Flutter, Digitalisation sans fin",
-//                     textAlign: TextAlign.center,
-//                     style: GoogleFonts.poppins(
-//                       color: Colors.grey,
-//                       fontSize: 16,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               DelayAnimation(
-//                 fromTop: false,
-//                 delay: 1000,
-//                 child: SizedBox(
-//                   width: double.infinity,
-//                   child: ElevatedButton(
-//                     onPressed: () => stateNavigation(),
-//                     child: const Text("GET STARTED"),
-//                     style: ElevatedButton.styleFrom(
-//                       primary: d_red,
-//                       shape: const StadiumBorder(),
-//                       padding: const EdgeInsets.all(15),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
