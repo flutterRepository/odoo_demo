@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:odoo_demo/app/controllers/main/home_controller.dart';
 import 'package:odoo_demo/presentation/core/components/custom_bottom_nav_bar.dart';
-import 'package:odoo_demo/presentation/core/utils/core/app_colors.dart';
 import 'package:odoo_demo/presentation/core/utils/core/enum_constants.dart';
 import 'package:odoo_demo/presentation/core/utils/custom_sheet.dart';
 import 'package:odoo_demo/presentation/core/utils/size_config.dart';
@@ -24,6 +23,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         // title: const Text("AO"),
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.grey,
+          ),
+          onPressed: () {},
+        ),
 
         elevation: 0,
         actions: [
@@ -31,7 +37,10 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               showLogoutDialog();
             },
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(
+              Icons.more_vert,
+              color: Colors.grey,
+            ),
           ),
         ],
       ),
@@ -51,9 +60,9 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      // bottomNavigationBar: const CustomBottomNavBar(
-      //   selectedMenu: MenuState.home,
-      // ),
+      bottomNavigationBar: const CustomBottomNavBar(
+        selectedMenu: MenuState.home,
+      ),
     );
   }
 }

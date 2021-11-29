@@ -1,23 +1,27 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:odoo_demo/app/cubits/app_cubits.dart';
 import 'package:odoo_demo/infrastructure/apis/hive_cache_factory.dart';
 import 'package:odoo_demo/infrastructure/apis/odoo_env_factory.dart';
+import 'package:odoo_demo/infrastructure/services/data_services.dart';
+import 'package:odoo_demo/infrastructure/services/theme_service.dart';
+import 'package:odoo_demo/infrastructure/services/translations_service.dart';
 import 'package:odoo_demo/infrastructure/user/repository/auth/auth_repository.dart';
 import 'package:odoo_demo/infrastructure/user/repository/partner_repository.dart';
 import 'package:odoo_demo/infrastructure/user/repository/user_repository.dart';
-import 'package:odoo_demo/presentation/home/home_page.dart';
-import 'package:odoo_demo/presentation/user/auth/full_auth_page.dart';
-import 'package:odoo_demo/presentation/user/auth/sign_in_page.dart';
+import 'package:odoo_demo/presentation/core/others/cubits_ui/app_cubit_logic.dart';
 
 import 'package:odoo_demo/app/bindings/initial_bindings.dart';
 import 'package:odoo_demo/infrastructure/core/config.dart';
-import 'package:odoo_demo/presentation/core/services/theme_service.dart';
-import 'package:odoo_demo/presentation/core/services/translations_service.dart';
 import 'package:odoo_demo/presentation/core/theme/themes.dart';
+import 'package:odoo_demo/presentation/home/home_page.dart';
 import 'package:odoo_demo/presentation/routes/app_pages.dart';
+import 'package:odoo_demo/presentation/user/auth/full_auth_page.dart';
+import 'package:odoo_demo/presentation/user/auth/sign_in_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,6 +72,11 @@ class App extends StatelessWidget {
       fallbackLocale: const Locale('en', "US"),
       initialBinding: InitialBinding(),
       getPages: AppPages.pages,
+      // home: BlocProvider<AppCubits>(
+      //   create: (context) => AppCubits(data: DataServices()),
+      //   child: const AppCubitLogic(),
+      // ),
+      //! Mis côté pour intégrer BLoC
       home: (isServerConfigured && isLoggedIn)
           ? const HomePage()
           : (isServerConfigured && !isLoggedIn)
@@ -77,6 +86,17 @@ class App extends StatelessWidget {
         _setUpEnv();
       },
     );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: "Odoo demo",
+    //   theme: ThemeData(
+    //     primarySwatch: Colors.blue,
+    //   ),
+    //   home: BlocProvider<AppCubits>(
+    //     create: (context) => AppCubits(),
+    //     child: const AppCubitLogic(),
+    //   ),
+    // );
   }
 
   _setUpEnv() async {

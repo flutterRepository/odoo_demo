@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:odoo_demo/app/controllers/user/auth_controller.dart';
 
 import 'package:odoo_demo/presentation/core/components/delayed_animation.dart';
-import 'package:odoo_demo/presentation/core/others/welcom_page.dart';
+import 'package:odoo_demo/presentation/core/others/simple_welcome_page.dart';
 import 'package:odoo_demo/presentation/core/utils/core/app_colors.dart';
 import 'package:odoo_demo/presentation/core/utils/core/constants.dart';
 
@@ -34,7 +34,7 @@ class _FullAuthPageState extends State<FullAuthPage> {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Get.to(
-            () => const WelcomePage(),
+            () => const SimpleWelcomePage(),
           ),
           icon: const Icon(
             Icons.close,
